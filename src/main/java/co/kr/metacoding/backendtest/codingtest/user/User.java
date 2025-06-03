@@ -9,17 +9,21 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
-@Table(name = "users")
+@Table(name = "user_tb")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private String name;
 
-    public void update(String username) {
-        this.name = username;
+    @Builder
+    public User(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public void update(String name) {
+        this.name = name;
     }
 }

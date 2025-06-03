@@ -14,14 +14,17 @@ public class UserRepository {
         return user;
     }
 
-    public User getUserById(Integer id) {
-        User user = em.find(User.class, id);
-        return user;
+    public User findUserById(long userId) {
+        return em.find(User.class, userId);
     }
 
-    public User update(Integer id, String username) {
-        User user = em.find(User.class, id);
-        user.update(username);
-        return user;
+    public User findUserByName(String name) {
+        try {
+            return em.createQuery("select u from User u where u.name = :name", User.class)
+                    .setParameter("name", name)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
